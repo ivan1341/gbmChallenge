@@ -1,0 +1,22 @@
+{
+  "name": "gbmchallenge",
+  "version": "1.0.0",
+  "description": "GBM Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan1341/gbmChallenge.git"
+  },
+  "author": "Ivan 1341",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivan1341/gbmChallenge/issues"
+  },
+  "homepage": "https://github.com/ivan1341/gbmChallenge#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
