@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ivan1341/gbmChallenge#readme",
   "dependencies": {
-    "bootstrap": "^3.4.1"
+    "bootstrap": "^3.4.1",
+    "express": "^4.16.4"
   }
 }
