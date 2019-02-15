@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost/APIauthentication',{ useNewUrlParser: true
 
 const app = express();
 
+app.use(express.static('web'));
 //Middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.json());

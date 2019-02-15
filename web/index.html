@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>GBM Challenge</title>
+
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+	<script>
+	
+	var json = null;
+
+	
+	
+	
+	
+	
+	
+	
+	$(function(){
+	
+	fetch('/service.json')
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(myJson) {
+		json = myJson;
+		console.log( myJson);
+
+
+		new Morris.Line({
+	// ID of the element in which to draw the chart.
+	element: 'myfirstchart',
+	// Chart data records -- each entry in this array corresponds to a point on
+	// the chart.
+	data: json.resultObj ,
+	// The name of the data record attribute that contains x-values.
+	xkey: 'Fecha',
+	// A list of names of data record attributes that contain y-values.
+	ykeys: ['Precio'],
+	// Labels for the ykeys -- will be displayed when you hover over the
+	// chart.
+	labels: ['Precio'],
+	ymax:42900,
+	ymin:42600
+
+});
+	});
+	
+	
+
+	
+	})
+
+	</script>
+	
+	
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">GBM Challenge</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+			<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+			<li><a href="#">Link</a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				<li><a href="#">Action</a></li>
+				<li><a href="#">Another action</a></li>
+				<li><a href="#">Something else here</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#">Separated link</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#">One more separated link</a></li>
+				</ul>
+			</li>
+			</ul>
+			<form class="navbar-form navbar-left">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+			<li><a href="#">Hola Iván</a></li>
+			
+			</ul>
+		</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+</header>
+
+
+<section>
+		<h3>IPC</h3>
+	<div id="myfirstchart" style="height: 250px;"></div>
+	
+</section>
+
+<footer>
+</footer>
+	
+	
+</body>
+
+</html>
