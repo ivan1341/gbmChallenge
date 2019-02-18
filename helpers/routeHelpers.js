@@ -3,6 +3,8 @@ const joi = require('joi');
 module.exports = {
     validateBody:(schema) =>{
         return(req,res,next) =>{
+
+            res.redirect('/login.html');
             const result = joi.validate(req.body, schema);
             if(result.error){
                 return res.status(400).json(result.error);
