@@ -4,7 +4,19 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+
 mongoose.connect('mongodb://localhost/APIauthentication',{ useNewUrlParser: true })
+
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  User.findById(id, function(err, user) {
+    cb(err, user);
+  });
+});
 
 const app = express();
 
@@ -15,11 +27,11 @@ app.use(session({
 
 app.use(express.static('web'));
 //Middlewares
-app.use(passport.session());
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 //Routes
 app.use('/', require('./routes/users'))
 //app.use('/users', require('./routes/users'))
