@@ -1,34 +1,37 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+var localStrategy = require('passport-local').Strategy;
 const User = require('./models/user');
 
-//Local Strategy
 
-passport.use(new LocalStrategy({
-  usernameField: 'email'
-}, async (email, password, done) => {
-  try {
-    
-    // Find the user given the email
-    const user = await User.findOne({ "local.email": email });
-    
-    console.log(user)
-    // If not, handle it
-    if (!user) {
-      return done(null, false);
-    }
-  
-    // Check if the password is correct
-    const isMatch = await user.isValidPassword(password);
-  
-    // If not, handle it
-    if (!isMatch) {
-      return done(null, false);
-    }
-  
-    // Otherwise, return the user
-    done(null, user);
-  } catch(error) {
-    done(error, false);
-  }
-}));
+module.exports = function (passport) {
+    passport.serializeUser(function (user, done) {
+        done(null, user)
+    })
+    passport.deserializeUser(function (user, done) {
+        done(null, user)
+    })
+
+    passport.use(new localStrategy({passReqToCallback : true}, function (req, username, password, done) {
+        User.findOne({
+            username: username
+        }, function (err, doc) {
+            if (err) {
+                done(err)
+            } else {
+                if (doc) {
+                    var valid = doc.comparePassword(password, doc.password)
+                    if (valid) {
+                        // do not add password hash to session
+                        done(null, {
+                            username: doc.username,
+                            id: doc._id
+                        })
+                    } else {
+                        done(null, false, req.flash('message','Nombre de usuario o password incorrectos'))
+                    }
+                } else {
+                    done(null, false)
+                }
+            }
+        })
+    }))
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>GBM Challenge</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<link
+	  rel="stylesheet"
+	  href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	  integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+	  crossorigin="anonymous"
+	/>
+	<link rel="stylesheet" href="css/styles.css" />
+	<link
+	  rel="stylesheet"
+	  href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"
+	/>
+
+	<script
+	  src="https://code.jquery.com/jquery-1.12.4.min.js"
+	  integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+	  crossorigin="anonymous"
+	></script>
+	<script
+	  src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+	  integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+	  crossorigin="anonymous"
+	></script>
+
+	<script></script>
+  </head>
+  <body>
+	<header>
+	  <nav class="navbar navbar-default">
+		<div class="container-fluid">
+		  <div class="navbar-header">
+			<a class="navbar-brand" href="#">GBM Challenge</a>
+		  </div>
+		</div>
+	  </nav>
+	</header>
+
+	<section class="container-fluid">
+
+
+	  <div class="row">
+		<div class="col-sm-6 col-sm-push-3">
+		  <div class="panel panel-default ">
+			<div class="panel-heading">
+			  <h2 class="panel-title">Inicio de sesión</h2>
+			</div>
+			<div class="panel-body">
+					<% if (messages) { %>
+						<div class="alert alert-danger" role="alert"><%= messages %></div>
+					<% } %>
+			  <form method="post" action="/auth/login">
+				<div class="form-group">
+				  <label for="exampleInputEmail1">Email</label>
+				  <input
+					type="email"
+					class="form-control"
+					name="username"
+					placeholder="Email"
+				  />
+				</div>
+				<div class="form-group">
+				  <label for="exampleInputPassword1">Contraseña</label>
+				  <input
+					type="password"
+					class="form-control"
+					name="password"
+					placeholder="Password"
+				  />
+				</div>
+				<div class="form-group">
+				  <button type="submit" class="btn btn-primary ">
+					Iniciar sessión
+				  </button>
+				</div>
+			  </form>
+			  <div class="divider"></div>
+			  <div class="form-group">
+				<button class="btn btn-danger">
+				  Inicia sesión con Google +
+				</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</section>
+
+	<ol class="breadcrumb">
+	  <li><a href="#">Login</a></li>
+	</ol>
+
+	<% include partials/footer.ejs %>
+  </body>
+</html>
