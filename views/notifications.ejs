@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GBM Challenge</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+	<script>
+	
+	var json = null;
+	
+	$(function(){
+	
+	fetch('/service.json')
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(myJson) {
+		json = myJson;
+		console.log( myJson);
+
+
+		var valuesArray = new Array();
+		for(val in json.resultObj ){
+		valuesArray.push( json.resultObj[val].Precio);
+
+		}
+
+		
+	</script>
+	
+	
+</head>
+<body>
+		<% include partials/header.ejs %>
+<section class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+		<div class="panel panel-default ">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Indices</h3>
+                </div>
+                <div class="panel-body">
+						<table class="table">
+                                <tbody>
+                                    <tr>
+									<td ><a href="/">Ver IPC</a></td>
+								  </tr>
+								  <tr>
+									<th scope="row">Notificaciones</th>
+								  </tr>
+								  <tr>
+									<td ><a href="/users">Ver usuarios</a></td>
+								  </tr>
+
+								</tbody>
+							  </table>
+				</div>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Usuarios</h3>
+                </div>
+                <div class="panel-body">
+					<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Mensaje</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+         
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          
+        </tr>
+      </tbody>
+    </table>
+				</div>
+		</div>
+	</div>
+	</div>
+
+
+</section>
+
+
+<ol class="breadcrumb">
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/users">Usuarios</a></li>
+	  </ol>
+<footer class="container-fluid">
+				<div class="row">
+					Siguenos en nuestras redes sociales
+				
+				<div class="redesSociales">
+					<img src="/img/facebook.png" alt="Facebook" class="img-rounded">
+					<img src="/img/twitter.png" alt="Twitter" class="img-rounded">
+					<img src="/img/linkedin.png" alt="Linkedin" class="img-rounded">
+			</div> 
+				</div>
+</footer>
+	
+	
+</body>
+
+</html>

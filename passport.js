@@ -1,6 +1,6 @@
 var localStrategy = require('passport-local').Strategy;
 const User = require('./models/user');
-
+const Notification = require('./models/notification');
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
@@ -19,17 +19,35 @@ module.exports = function (passport) {
             } else {
                 if (doc) {
                     var valid = doc.comparePassword(password, doc.password)
-                    if (valid) {
+                    if (valid && !doc.isBlocked) {
                         // do not add password hash to session
                         done(null, {
                             username: doc.username,
                             id: doc._id
                         })
                     } else {
-                        done(null, false, req.flash('message','Nombre de usuario o password incorrectos'))
+                        var failsAttempts = doc.failsAttempts + 1;
+
+                        if(failsAttempts < 3 && !doc.isBlocked){
+                            doc.set({failsAttempts}).save();
+                            done(null, false, req.flash('message','Nombre de usuario o password incorrectos'));
+                        }
+                        else{
+                            doc.set({failsAttempts, 'isBlocked': true}).save();
+                            done(null, false, req.flash('message',  'El usuario ha sido bloquedo, maximo de intentos alcanzado'));
+                            var notification = new Notification();
+                            notification.message = 'El usuario ha sido bloquedo, maximo de intentos alcanzado';
+                            notification.save(function (err, user) {
+                                if (err) {
+                                    console.log('db error')
+                                } else {
+                                    console.log('notificacion añadida')
+                                }
+                            })
+                        }
                     }
                 } else {
-                    done(null, false)
+                    done(null, false,req.flash('message','Nombre de usuario o password incorrectos'))
                 }
             }
         })

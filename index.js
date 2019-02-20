@@ -7,16 +7,16 @@ const passport = require('passport');
 const User = require('./models/user');
 const path = require('path');
 const flash = require('connect-flash');
+const config = require('./configuration');
 
 require('./passport')(passport)
 
-mongoose.connect('mongodb://localhost/GBMchallenge',{ useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/' + config.DATABASE_NAME ,{ useNewUrlParser: true })
 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth')(passport);
-
 
 
 

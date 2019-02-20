@@ -12,6 +12,18 @@ var userSchema = new schema({
         type: String,
         required: true,
     },
+    isAdmin: { type: Boolean,
+         default: false
+         },
+    failsAttempts : {
+        type: Number,
+        default: 0
+    },
+    isBlocked : {
+        type: Boolean,
+        default: false
+    }
+    
 })
 
 userSchema.methods.hashPassword = function (password) {

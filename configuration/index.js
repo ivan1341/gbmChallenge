@@ -1,3 +1,5 @@
 module.exports = {
-    JWT_SECRET: 'mysecreteAutenticxation'
+    DATABASE_NAME : 'GBMChallenge',
+    DEFAUL_USER: 'admin@mail.com',
+    DEFAUL_PASSWORD : 'Admin'
 }
