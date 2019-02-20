@@ -29,7 +29,7 @@
 	
 	$(function(){
 	
-	fetch('/service.json')
+	fetch('/getIPC')
 	.then(function(response) {
 		return response.json();
 	})
@@ -74,7 +74,7 @@ var ymin = Math.round( getMinOfArray(valuesArray)) -50;
 		<% include partials/header.ejs %>
 <section class="container-fluid">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 hidden-xs">
 		<div class="panel panel-default ">
                 <div class="panel-heading">
                   <h3 class="panel-title">Indices</h3>
@@ -118,9 +118,9 @@ var ymin = Math.round( getMinOfArray(valuesArray)) -50;
 			<div class="col-md-9 col-md-push-3">
 					<div class="panel panel-default">
 							<div class="panel-heading">
-							  <h3 class="panel-title">Resumen</h3>
+							  <h3 class="panel-title">Resumen (datos simulados)</h3>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body table-responsive">
 									<table class="table">
 											
 											<thead>
@@ -179,17 +179,7 @@ var ymin = Math.round( getMinOfArray(valuesArray)) -50;
 		<li><a href="#">Inicio</a></li>
 		<li><a href="#">IPC</a></li>
 	  </ol>
-<footer class="container-fluid">
-				<div class="row">
-					Siguenos en nuestras redes sociales
-				
-				<div class="redesSociales">
-					<img src="/img/facebook.png" alt="Facebook" class="img-rounded">
-					<img src="/img/twitter.png" alt="Twitter" class="img-rounded">
-					<img src="/img/linkedin.png" alt="Linkedin" class="img-rounded">
-			</div> 
-				</div>
-</footer>
+		<% include partials/footer.ejs %>
 	
 	
 </body>

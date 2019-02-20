@@ -1,6 +1,9 @@
-var localStrategy = require('passport-local').Strategy;
+const localStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 const User = require('./models/user');
 const Notification = require('./models/notification');
+
 
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
@@ -23,7 +26,8 @@ module.exports = function (passport) {
                         // do not add password hash to session
                         done(null, {
                             username: doc.username,
-                            id: doc._id
+                            id: doc._id,
+                            isAdmin:doc.isAdmin
                         })
                     } else {
                         var failsAttempts = doc.failsAttempts + 1;
@@ -34,9 +38,9 @@ module.exports = function (passport) {
                         }
                         else{
                             doc.set({failsAttempts, 'isBlocked': true}).save();
-                            done(null, false, req.flash('message',  'El usuario ha sido bloquedo, maximo de intentos alcanzado'));
+                            done(null, false, req.flash('message',  'El usuario ' +username+ ' ha sido bloquedo, maximo de intentos alcanzado'));
                             var notification = new Notification();
-                            notification.message = 'El usuario ha sido bloquedo, maximo de intentos alcanzado';
+                            notification.message = 'El usuario ' +username+ ' ha sido bloquedo, maximo de intentos alcanzado';
                             notification.save(function (err, user) {
                                 if (err) {
                                     console.log('db error')
@@ -52,4 +56,20 @@ module.exports = function (passport) {
             }
         })
     }))
+
+    passport.use(new FacebookStrategy({
+        clientID: "2332996226929990",
+        clientSecret: "4f23be50fb6b9f588e517021c386bde8",
+        callbackURL: "https://localhost:3000/auth/facebook/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+        var user = User();
+        user.username = profile.displayName;
+        user.passport = "";
+          done(null, user);
+      }
+    ));
 }
+
+
+

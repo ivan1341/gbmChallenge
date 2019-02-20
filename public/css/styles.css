@@ -33,11 +33,12 @@
 
 .footer{
     background: #eee;
-    height: 110px;
+    height: 150px;
 }
 .redesSociales{
     margin: 0 auto;
     width: 232px;
+    margin-top: 50px;
 }
 
 .redesSociales img{

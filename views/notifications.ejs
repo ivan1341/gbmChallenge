@@ -16,37 +16,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-	<script>
-	
-	var json = null;
-	
-	$(function(){
-	
-	fetch('/service.json')
-	.then(function(response) {
-		return response.json();
-	})
-	.then(function(myJson) {
-		json = myJson;
-		console.log( myJson);
-
-
-		var valuesArray = new Array();
-		for(val in json.resultObj ){
-		valuesArray.push( json.resultObj[val].Precio);
-
-		}
-
-		
-	</script>
-	
 	
 </head>
 <body>
 		<% include partials/header.ejs %>
 <section class="container-fluid">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 hidden-xs">
 		<div class="panel panel-default ">
                 <div class="panel-heading">
                   <h3 class="panel-title">Indices</h3>
@@ -72,7 +48,7 @@
 	<div class="col-md-9">
 		<div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Usuarios</h3>
+                  <h3 class="panel-title">Notificaciones</h3>
                 </div>
                 <div class="panel-body">
 					<table class="table table-striped">
@@ -85,24 +61,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-         
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          
-        </tr>
+					<% messages.forEach(function(message,index){ %>
+						<tr>
+							<th scope="row"><%- index + 1  %></th>
+          		<td><%- message.date %></td>
+          		<td><%- message.message %></td>
+				</tr>
+				<% })%>
       </tbody>
     </table>
 				</div>
@@ -118,17 +83,7 @@
 		<li><a href="/">Inicio</a></li>
 		<li><a href="/users">Usuarios</a></li>
 	  </ol>
-<footer class="container-fluid">
-				<div class="row">
-					Siguenos en nuestras redes sociales
-				
-				<div class="redesSociales">
-					<img src="/img/facebook.png" alt="Facebook" class="img-rounded">
-					<img src="/img/twitter.png" alt="Twitter" class="img-rounded">
-					<img src="/img/linkedin.png" alt="Linkedin" class="img-rounded">
-			</div> 
-				</div>
-</footer>
+		<% include partials/footer.ejs %>
 	
 	
 </body>

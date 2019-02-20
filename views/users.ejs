@@ -16,37 +16,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-	<script>
-	
-	var json = null;
-	
-	$(function(){
-	
-	fetch('/service.json')
-	.then(function(response) {
-		return response.json();
-	})
-	.then(function(myJson) {
-		json = myJson;
-		console.log( myJson);
-
-
-		var valuesArray = new Array();
-		for(val in json.resultObj ){
-		valuesArray.push( json.resultObj[val].Precio);
-
-		}
-
-		
-	</script>
-	
-	
 </head>
 <body>
 		<% include partials/header.ejs %>
 <section class="container-fluid">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 hidden-xs">
 		<div class="panel panel-default ">
                 <div class="panel-heading">
                   <h3 class="panel-title">Indices</h3>
@@ -74,13 +49,13 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">Usuarios</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body table-responsive">
 					<table class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
           <th>Usuario</th>
-          <th>Es administrador</th>
+          <th>Rol de usuario</th>
           <th>Usuario bloqueado</th>
           <th>Intentos fallidos</th>
           <th>Acciones</th>
@@ -91,37 +66,37 @@
         <% users.forEach(function(user,index){ %>
         <tr>
           <th scope="row"><%- index + 1  %></th>
-          <td><%- user.username %></td>
-          <td>
-            <select class="form-control">
+          <td class="userName"><%- user.username %></td>
+          <td >
+            <select class="form-control rol">
                 <% if(!user.isAdmin){ %>
-                    <option selected>Usuario normal</option>
-                    <option>Administrador</option>
+                    <option value="false" selected>Normal</option>
+                    <option value="true" >Administrador</option>
                 <% }else{ %>
-                    <option >Usuario normal</option>
-                    <option selected>Administrador</option>
+                    <option value="false">Normal</option>
+                    <option value="true" selected>Administrador</option>
                     <%} %>
             </select>
         </td>
           <td>
-            <select class="form-control">
+            <select class="form-control isBlocked">
                 <% if(!user.isBlocked){ %>
-                    <option selected>Desbloqueado</option>
-                    <option>Bloqueado</option>
+                    <option selected value="false">Desbloqueado</option>
+                    <option value="true">Bloqueado</option>
                 <% }else{ %>
-                    <option >Desbloqueado</option>
-                    <option selected>Bloqueado</option>
+                    <option value="false" >Desbloqueado</option>
+                    <option value="true" selected>Bloqueado</option>
                     <%} %>
             </select>    
         </td>
           <td><%- user.failsAttempts %></td>
-          <td><button type="button" class="btn btn-default" aria-label="Left Align">
+          <td><button type="button" class="btn btn-default" aria-label="Left Align" title="Guardar cambios" data-action="save">
   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 </button>
-<button type="button" class="btn btn-default" aria-label="Left Align">
+<button type="button" class="btn btn-default" aria-label="Left Align" title="Restablecer usuario" data-action="reset">
   <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
 </button>
-<button type="button" class="btn btn-default" aria-label="Left Align" label="Eliminar">
+<button type="button" class="btn btn-default" aria-label="Left Align" label="Eliminar" title="Eliminar usuario" data-action="delete">
   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 </button>
 </td>
@@ -142,18 +117,39 @@
 		<li><a href="/">Inicio</a></li>
 		<li><a href="/users">Usuarios</a></li>
 	  </ol>
-<footer class="container-fluid">
-				<div class="row">
-					Siguenos en nuestras redes sociales
-				
-				<div class="redesSociales">
-					<img src="/img/facebook.png" alt="Facebook" class="img-rounded">
-					<img src="/img/twitter.png" alt="Twitter" class="img-rounded">
-					<img src="/img/linkedin.png" alt="Linkedin" class="img-rounded">
-			</div> 
-				</div>
-</footer>
+		<% include partials/footer.ejs %>
 	
+<script>
+	$('button').on('click', function(){
+		var row = $(this).closest('tr');
+		var action = $(this).attr("data-action");
+		var username = $(row).find('.userName').html();
+		var rol = $(row).find('.rol').val();
+		var isBlocked = $(row).find('.isBlocked').val();
+	
+		console.log(username, rol, isBlocked)
+
+
+
+			var post_url = "/userOperations"; 
+			var request_method = "POST"; 
+
+			var data = {"operation": action, "username":username, "isAdmin":rol, "isBlocked":isBlocked}
+			var form_data = $.param(data); 
+	
+			$.ajax({
+				url : post_url,
+				type: request_method,
+				data : form_data
+			}).done(function(response){ //
+				alert(response);
+				window.location.href = '/users';
+
+			})
+
+
+	})
+</script>
 	
 </body>
 

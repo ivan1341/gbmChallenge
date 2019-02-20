@@ -8,6 +8,8 @@ const User = require('./models/user');
 const path = require('path');
 const flash = require('connect-flash');
 const config = require('./configuration');
+const fs = require('fs');
+const https = require('https');
 
 require('./passport')(passport)
 
@@ -71,6 +73,14 @@ app.use(function (req, res, next) {
 
 //Star ther server
 const port = process.env.PORT || 3000;
-app.listen(port);
 
-console.log(`Servidor escuchando en el puerto ${port}`);
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(port, function () {
+  console.log('Servidor escuchando en el puerto 3000! ve a https://localhost:3000/')
+})
+
+
+
+//console.log(`Servidor escuchando en el puerto ${port}`);
