@@ -33,6 +33,7 @@
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.12",
     "morgan": "^1.9.1",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.10",
     "openssl": "^1.1.0",
     "passport": "^0.4.0",
